@@ -1,0 +1,10 @@
+﻿@page
+@model RazorPizzeria.Pages.Checkout.ThankYouModel
+@{
+    DateTime date = DateTime.Now;
+    var simpleTime = date.ToLocalTime();
+}
+
+<h1>Thank you for your order, we're on the way!</h1>
+<h4>Order Placed at: @simpleTime</h4>
+<h4>Order Contains: @Model.PizzaName </h4>
