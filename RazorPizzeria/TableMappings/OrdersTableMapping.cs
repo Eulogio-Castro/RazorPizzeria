@@ -10,10 +10,17 @@ namespace RazorPizzeria.TableMappings
         public void Configure(EntityTypeBuilder<PizzaOrderModel> builder)
         {
             builder.ToTable("Orders");
-            builder.Property(c => c.Id).HasColumnName("Id").IsRequired();
-            builder.Property(c => c.PizzaName).HasColumnName("PizzaName").IsRequired(); 
-            builder.Property(c => c.FinalPrice).HasColumnName("FinalPrice");
-            builder.Property(c => c.OrderDate).HasColumnName("OrderDate");
+            builder.HasKey("Id");
+            builder.Property(o => o.Id).HasColumnName("Id").IsRequired();
+            builder.Property(o => o.OrderDate).HasColumnName("OrderDate");
+            builder.Property(o => o.CustomerID).HasColumnName("CustomerID");
+            builder.HasMany(o => o.Pizzas)
+                .WithOne(o => o.PizzaOrder)
+                .HasForeignKey(o => o.PizzaOrderId)
+                .IsRequired();
+        //        .HasMany(e => e.Posts)
+        //.WithOne(e => e.Blog)
+        //.HasForeignKey(e => e.BlogId)
         }
     }
 }

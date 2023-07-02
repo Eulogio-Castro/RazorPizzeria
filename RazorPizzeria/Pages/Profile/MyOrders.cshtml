@@ -1,0 +1,28 @@
+﻿@page
+@model RazorPizzeria.Pages.Profile.MyOrdersModel
+@{
+}
+<h3>My Orders</h3>
+<hr/>
+<table class="table">
+    <thead>
+        <tr>
+            <th>OrderNumber</th>
+            <th>Pizza Name</th>
+            <th>Price</th>
+            <th>Order Placed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var order in @Model.MyPizzaOrders)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.PizzaName</td>
+                <td>@order.FinalPrice</td>
+                <td>@order.OrderDate.ToLocalTime()</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

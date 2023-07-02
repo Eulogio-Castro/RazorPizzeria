@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using RazorPizzeria.Areas.Identity.Data
+
+@inject SignInManager<RazorPizzeriaUser> SignInManager
+@inject UserManager<RazorPizzeriaUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -28,7 +34,18 @@
                         <li class="nav-item">
                             <a class="nav-link mynavbartext" asp-area="" asp-page="/Orders">Orders</a>
                         </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link mynavbartext" asp-area="" asp-page="/Profile/MyOrders">My Orders</a>
+                            </li>
+                        }
+                        else
+                        {
+                            
+                        }
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

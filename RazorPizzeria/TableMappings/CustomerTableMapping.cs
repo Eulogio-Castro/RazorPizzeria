@@ -10,6 +10,7 @@ namespace RazorPizzeria.TableMappings
         public void Configure(EntityTypeBuilder<CustomerModel> builder)
         {
             builder.ToTable("Customers");
+            builder.HasKey("CustomerID");
             builder.Property(c => c.CustomerID).HasColumnName("CustomerID").IsRequired();
             builder.Property(c => c.CustomerName).HasColumnName("CustomerName").IsRequired();
             builder.Property(c => c.PhoneNumber).HasColumnName("PhoneNumber").IsRequired();

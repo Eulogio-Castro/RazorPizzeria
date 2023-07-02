@@ -18,7 +18,7 @@ namespace RazorPizzeria.Pages
 
         public void OnGet()
         {
-            PizzaOrders = _context.Orders.ToList();
+            PizzaOrders = _context.Orders.OrderByDescending(p => p.OrderDate).ToList();
         }
     }
 }

@@ -8,6 +8,10 @@ namespace RazorPizzeria.Pages.Checkout
     [BindProperties(SupportsGet = true)]
     public class CheckoutModel : PageModel
     {
+        public const string SessionKeyOrder = "_Order";
+        public const string SessionKeyAge = "_Age";
+
+
 
         public string PizzaName { get; set; }
         public float PizzaPrice { get; set; }

@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace RazorPizzeria.Models
@@ -9,11 +8,11 @@ namespace RazorPizzeria.Models
     {
         public int Id { get; set; }
         [StringLength(maximumLength:100, MinimumLength =0)]
-        public string PizzaName { get; set; }
 
-        public float FinalPrice { get; set; }
+        public DateTime OrderDate { get; set; } = DateTime.UtcNow;
 
-        public DateTime OrderDate { get; set; } = DateTime.Now;
+        public string CustomerID { get; set; }
 
+        public ICollection<PizzasModel> Pizzas { get; set; } = new List<PizzasModel>();
     }
 }

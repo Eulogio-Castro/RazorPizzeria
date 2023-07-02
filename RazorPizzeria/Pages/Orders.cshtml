@@ -9,6 +9,7 @@
     <thead>
         <tr>
             <th>OrderNumber</th>
+            <th>Customer</th>
             <th>Pizza Name</th>
             <th>Price</th>
             <th>Order Placed</th>
@@ -17,11 +18,17 @@
     <tbody>
         @foreach(var order in @Model.PizzaOrders)
         {
+            
             <tr>
                 <td>@order.Id</td>
-                <td>@order.PizzaName</td>
-                <td>@order.FinalPrice</td>
-                <td>@order.OrderDate</td>
+                <td>@order.CustomerID</td>
+                <td>Pizzas: <br>
+                    @foreach(var pizza in @order.Pizzas)
+                    {
+                        <span>@pizza.PizzaName Price: @pizza.PizzaName</span>
+                    }
+                </td>
+                <td>@order.OrderDate.ToLocalTime()</td>
             </tr>
         }
 

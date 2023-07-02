@@ -2,22 +2,47 @@ using RazorPizzeria.Data;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore;
 using MySqlConnector;
+using Microsoft.AspNetCore.Identity;
+using RazorPizzeria.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-string connectionStr = "Server=aws.connect.psdb.cloud;Database=razorpizzeriadb;user=ueg7ahbtdaecvzjiw0kw;password=pscale_pw_gQNdUv6EgT2BSfX3rs3BKjfMTmfa2BByfmrfiONlF4b;";
+var connectionString = builder.Configuration.GetConnectionString("RazorPizzeriaContextConnection") ?? throw new InvalidOperationException("Connection string 'RazorPizzeriaContextConnection' not found.");
+//string connectionStr = "Server=aws.connect.psdb.cloud;Database=razorpizzeriadb;user=ueg7ahbtdaecvzjiw0kw;password=pscale_pw_gQNdUv6EgT2BSfX3rs3BKjfMTmfa2BByfmrfiONlF4b;";
+string connectionStr = "Username=eulogio;Password=yoSXIJDn-LK2uNyDZ0rpeA;Host=db-ecastro-cockroach-2805.g95.cockroachlabs.cloud:26257;Database=RazorPizzeria";
+
+
+
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+});
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
-    options.UseMySql(connectionStr, ServerVersion.AutoDetect(connectionStr))
+    options.UseNpgsql(connectionStr)
     .LogTo(Console.WriteLine, LogLevel.Information)
     .EnableSensitiveDataLogging()
     .EnableDetailedErrors()
 
 );
 
+builder.Services.AddDefaultIdentity<RazorPizzeriaUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDBContext>();
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".RazorPizzeria.Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 
 var app = builder.Build();
 
@@ -33,8 +58,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 
