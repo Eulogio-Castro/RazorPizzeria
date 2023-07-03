@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RazorPizzeria.Helpers;
 using RazorPizzeria.Models;
 
 namespace RazorPizzeria.Pages.Forms
 {
     public class CustomPizzaModel : PageModel
     {
+        public const string SessionKeyOrder = "_Order";
+
         [BindProperty]
         public PizzasModel Pizza { get; set; }
         public float PizzaPrice { get; set; }
@@ -15,6 +18,7 @@ namespace RazorPizzeria.Pages.Forms
 
         public IActionResult OnPost()
         {
+            if (Pizza.PizzaName == null) { Pizza.PizzaName = "Create"; }
             PizzaPrice = Pizza.BasePrice;
             if (Pizza.HasPizzaSauce) PizzaPrice += 1;
             if (Pizza.HasCheese) PizzaPrice += 1;
@@ -24,8 +28,15 @@ namespace RazorPizzeria.Pages.Forms
             if (Pizza.HasPineapple) PizzaPrice += 1;
             if (Pizza.HasHam) PizzaPrice += 1;
             if (Pizza.HasBeef) PizzaPrice += 1;
+            Pizza.FinalPrice = PizzaPrice;
+            PizzaOrderModel currentOrder = HttpContext.Session.GetObject<PizzaOrderModel>(SessionKeyOrder);
 
-            return RedirectToPage("/Checkout/Checkout", new {Pizza.PizzaName, PizzaPrice});
+            currentOrder.Pizzas.Add(Pizza);
+
+            HttpContext.Session.SetObject(SessionKeyOrder, currentOrder);
+
+            return RedirectToPage("/Checkout/Checkout");
+
         }
     }
 }

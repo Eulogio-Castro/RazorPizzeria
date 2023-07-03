@@ -8,7 +8,7 @@ using RazorPizzeria.Areas.Identity.Data;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("RazorPizzeriaContextConnection") ?? throw new InvalidOperationException("Connection string 'RazorPizzeriaContextConnection' not found.");
 //string connectionStr = "Server=aws.connect.psdb.cloud;Database=razorpizzeriadb;user=ueg7ahbtdaecvzjiw0kw;password=pscale_pw_gQNdUv6EgT2BSfX3rs3BKjfMTmfa2BByfmrfiONlF4b;";
-string connectionStr = "Username=eulogio;Password=yoSXIJDn-LK2uNyDZ0rpeA;Host=db-ecastro-cockroach-2805.g95.cockroachlabs.cloud:26257;Database=RazorPizzeria";
+string connectionStr = "Username=eulogio;Password=1SI5VupYsvb5LAVuFdMxXg;Host=db-ecastro-cockroach-2816.g95.cockroachlabs.cloud:26257;Database=RazorPizzeria";
 
 
 

@@ -1,4 +1,5 @@
 ﻿@page
+@using RazorPizzeria.Models
 @model RazorPizzeria.Pages.Checkout.ThankYouModel
 @{
     DateTime date = DateTime.Now;
@@ -7,4 +8,46 @@
 
 <h1>Thank you for your order, we're on the way!</h1>
 <h4>Order Placed at: @simpleTime</h4>
-<h4>Order Contains: @Model.PizzaName </h4>
+<br />
+<br />
+<h4>Order Details:</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PizzasModel pizza in @Model._currentOrder.Pizzas)
+        {
+
+            <tr>
+            <tr><td><strong>@pizza.PizzaName</strong></td></tr>
+            <tr><td>Toppings: @getToppings(@pizza)</td></tr>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+
+@{
+    string getToppings(PizzasModel pizza)
+    {
+        List<string> Toppings = new List<string>();
+
+
+
+        if (pizza.HasPizzaSauce) Toppings.Add("Pizza Sauce");
+        if (pizza.HasCheese) Toppings.Add("Cheese");
+        if (pizza.HasPepperoni) Toppings.Add("Pepperoni");
+        if (pizza.HasBeef) Toppings.Add("Beef");
+        if (pizza.HasHam) Toppings.Add("Ham");
+        if (pizza.HasMushroom) Toppings.Add("Mushroom");
+        if (pizza.HasPineapple) Toppings.Add("Pineapple");
+        if (pizza.HasTuna) Toppings.Add("Tuna");
+
+        string topList = String.Join(',', Toppings);
+        return topList;
+    }
+}

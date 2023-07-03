@@ -5,6 +5,7 @@ using RazorPizzeria.Data;
 using RazorPizzeria.Areas.Identity.Data;
 using RazorPizzeria.Models;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace RazorPizzeria.Pages.Profile
 {
@@ -27,7 +28,7 @@ namespace RazorPizzeria.Pages.Profile
         {
             string? UserEmail = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Email);
             if (UserEmail != null)
-                MyPizzaOrders = _context.Orders.Where(p => p.CustomerID.Equals(UserEmail)).OrderByDescending(p=>p.OrderDate).ToList();
+                MyPizzaOrders = _context.Orders.Include(p=>p.Pizzas).Where(o => o.CustomerID.Equals(UserEmail)).Take(10).OrderByDescending(o=>o.OrderDate).ToList();
         }
     }
 }

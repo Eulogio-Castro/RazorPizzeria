@@ -13,6 +13,9 @@ namespace RazorPizzeria.Models
 
         public string CustomerID { get; set; }
 
+
         public ICollection<PizzasModel> Pizzas { get; set; } = new List<PizzasModel>();
+
+        public float OrderPrice { get; set; }
     }
 }

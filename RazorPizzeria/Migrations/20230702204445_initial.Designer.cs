@@ -12,7 +12,7 @@ using RazorPizzeria.Data;
 namespace RazorPizzeria.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20230701201955_initial")]
+    [Migration("20230702204445_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -281,19 +281,18 @@ namespace RazorPizzeria.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<float>("FinalPrice")
-                        .HasColumnType("real")
-                        .HasColumnName("FinalPrice");
+                    b.Property<string>("CustomerID")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CustomerID");
 
                     b.Property<DateTime>("OrderDate")
+                        .HasMaxLength(100)
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("OrderDate");
 
-                    b.Property<string>("PizzaName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("PizzaName");
+                    b.Property<float>("OrderPrice")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -301,6 +300,78 @@ namespace RazorPizzeria.Migrations
                         .IsUnique();
 
                     b.ToTable("Orders", (string)null);
+                });
+
+            modelBuilder.Entity("RazorPizzeria.Models.PizzasModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("Id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<float>("BasePrice")
+                        .HasColumnType("real")
+                        .HasColumnName("BasePrice");
+
+                    b.Property<float>("FinalPrice")
+                        .HasColumnType("real")
+                        .HasColumnName("FinalPrice");
+
+                    b.Property<bool>("HasBeef")
+                        .HasColumnType("boolean")
+                        .HasColumnName("HasBeef");
+
+                    b.Property<bool>("HasCheese")
+                        .HasColumnType("boolean")
+                        .HasColumnName("HasCheese");
+
+                    b.Property<bool>("HasHam")
+                        .HasColumnType("boolean")
+                        .HasColumnName("HasHam");
+
+                    b.Property<bool>("HasMushroom")
+                        .HasColumnType("boolean")
+                        .HasColumnName("HasMushroom");
+
+                    b.Property<bool>("HasPepperoni")
+                        .HasColumnType("boolean")
+                        .HasColumnName("HasPepperoni");
+
+                    b.Property<bool>("HasPineapple")
+                        .HasColumnType("boolean")
+                        .HasColumnName("HasPineapple");
+
+                    b.Property<bool>("HasPizzaSauce")
+                        .HasColumnType("boolean")
+                        .HasColumnName("HasPizzaSauce");
+
+                    b.Property<bool>("HasTuna")
+                        .HasColumnType("boolean")
+                        .HasColumnName("HasTuna");
+
+                    b.Property<string>("ImageTitle")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("ImageTitle");
+
+                    b.Property<string>("PizzaName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("PizzaName");
+
+                    b.Property<int>("PizzaOrderId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("PizzaOrderId");
+
+                    b.ToTable("PizzasModel", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -352,6 +423,22 @@ namespace RazorPizzeria.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RazorPizzeria.Models.PizzasModel", b =>
+                {
+                    b.HasOne("RazorPizzeria.Models.PizzaOrderModel", "PizzaOrder")
+                        .WithMany("Pizzas")
+                        .HasForeignKey("PizzaOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PizzaOrder");
+                });
+
+            modelBuilder.Entity("RazorPizzeria.Models.PizzaOrderModel", b =>
+                {
+                    b.Navigation("Pizzas");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,28 +1,64 @@
 ﻿@page
+@using RazorPizzeria.Models
+@using System.Text
 @model RazorPizzeria.Pages.Profile.MyOrdersModel
 @{
 }
 <h3>My Orders</h3>
-<hr/>
+<hr />
 <table class="table">
     <thead>
         <tr>
             <th>OrderNumber</th>
-            <th>Pizza Name</th>
+            <th>Order Details</th>
             <th>Price</th>
             <th>Order Placed</th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var order in @Model.MyPizzaOrders)
+        @foreach (PizzaOrderModel order in @Model.MyPizzaOrders)
         {
+            var pizzas = order.Pizzas;
             <tr>
                 <td>@order.Id</td>
-                <td>@order.PizzaName</td>
-                <td>@order.FinalPrice</td>
+                <td>
+                    <table>
+                        <tbody>
+                        @foreach(PizzasModel za in pizzas)
+                        {
+                        <tr>
+                            <tr><td><strong>@za.PizzaName</strong></td></tr>
+                            <tr><td>Toppings: @getToppings(@za)</td></tr>
+                        </tr>
+                        }
+                        </tbody>
+                    </table>
+                </td>
+                <td>$@order.OrderPrice</td>
                 <td>@order.OrderDate.ToLocalTime()</td>
             </tr>
         }
 
     </tbody>
 </table>
+
+@{
+    string getToppings(PizzasModel pizza)
+    {
+        List<string> Toppings = new List<string>();
+
+
+
+        if (pizza.HasPizzaSauce) Toppings.Add("Pizza Sauce");
+        if (pizza.HasCheese) Toppings.Add("Cheese");
+        if (pizza.HasPepperoni) Toppings.Add("Pepperoni");
+        if (pizza.HasBeef) Toppings.Add("Beef");
+        if (pizza.HasHam) Toppings.Add("Ham");
+        if (pizza.HasMushroom) Toppings.Add("Mushroom");
+        if (pizza.HasPineapple) Toppings.Add("Pineapple");
+        if (pizza.HasTuna) Toppings.Add("Tuna");
+
+        string topList = String.Join(',', Toppings);
+        return topList;
+    }
+}

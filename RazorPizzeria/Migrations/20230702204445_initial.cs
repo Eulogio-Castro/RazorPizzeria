@@ -76,9 +76,9 @@ namespace RazorPizzeria.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PizzaName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    FinalPrice = table.Column<float>(type: "real", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    OrderDate = table.Column<DateTime>(type: "timestamp with time zone", maxLength: 100, nullable: false),
+                    CustomerID = table.Column<string>(type: "text", nullable: false),
+                    OrderPrice = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,6 +191,37 @@ namespace RazorPizzeria.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PizzasModel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ImageTitle = table.Column<string>(type: "text", nullable: false),
+                    PizzaName = table.Column<string>(type: "text", nullable: false),
+                    BasePrice = table.Column<float>(type: "real", nullable: false),
+                    HasPizzaSauce = table.Column<bool>(type: "boolean", nullable: false),
+                    HasCheese = table.Column<bool>(type: "boolean", nullable: false),
+                    HasPepperoni = table.Column<bool>(type: "boolean", nullable: false),
+                    HasMushroom = table.Column<bool>(type: "boolean", nullable: false),
+                    HasTuna = table.Column<bool>(type: "boolean", nullable: false),
+                    HasPineapple = table.Column<bool>(type: "boolean", nullable: false),
+                    HasHam = table.Column<bool>(type: "boolean", nullable: false),
+                    HasBeef = table.Column<bool>(type: "boolean", nullable: false),
+                    FinalPrice = table.Column<float>(type: "real", nullable: false),
+                    PizzaOrderId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PizzasModel", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PizzasModel_Orders_PizzaOrderId",
+                        column: x => x.PizzaOrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -239,6 +270,17 @@ namespace RazorPizzeria.Migrations
                 table: "Orders",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PizzasModel_Id",
+                table: "PizzasModel",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PizzasModel_PizzaOrderId",
+                table: "PizzasModel",
+                column: "PizzaOrderId");
         }
 
         /// <inheritdoc />
@@ -263,13 +305,16 @@ namespace RazorPizzeria.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "PizzasModel");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
         }
     }
 }

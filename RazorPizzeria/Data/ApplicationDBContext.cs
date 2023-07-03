@@ -22,7 +22,8 @@ namespace RazorPizzeria.Data
         {
 
             modelBuilder.ApplyConfiguration(new OrdersTableMapping())
-                        .ApplyConfiguration(new CustomersTableMapping());
+                        .ApplyConfiguration(new CustomersTableMapping())
+                        .ApplyConfiguration(new PizzasTableMapping());
             base.OnModelCreating(modelBuilder);
 
         }

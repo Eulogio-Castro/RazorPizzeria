@@ -8,7 +8,7 @@ namespace RazorPizzeria.TableMappings
     {
         public void Configure(EntityTypeBuilder<PizzasModel> builder)
         {
-            builder.ToTable("Pizzas");
+            builder.ToTable("PizzasModel");
             builder.HasKey("Id");
             builder.Property(o => o.Id).HasColumnName("Id").IsRequired();
             builder.Property(o => o.ImageTitle).HasColumnName("ImageTitle");

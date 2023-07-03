@@ -1,5 +1,8 @@
-﻿namespace RazorPizzeria.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+namespace RazorPizzeria.Models
 {
+    [Index(nameof(Id), IsUnique = true)]
     public class PizzasModel
     {
         public int Id { get; set; }

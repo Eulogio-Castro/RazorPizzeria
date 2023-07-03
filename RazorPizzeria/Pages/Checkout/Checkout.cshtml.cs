@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorPizzeria.Data;
 using RazorPizzeria.Models;
+using RazorPizzeria.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace RazorPizzeria.Pages.Checkout
 {
@@ -9,25 +11,22 @@ namespace RazorPizzeria.Pages.Checkout
     public class CheckoutModel : PageModel
     {
         public const string SessionKeyOrder = "_Order";
-        public const string SessionKeyAge = "_Age";
+        public const string SessionKeyPizza = "_Pizza";
+        public PizzaOrderModel _currentOrder = new PizzaOrderModel();
+        public float _OrderTotal = 0.0f;
 
+        public CheckoutModel()
+        {
 
-
-        public string PizzaName { get; set; }
-        public float PizzaPrice { get; set; }
-        public string ImageTitle { get; set; }
+        }
 
 
         public void OnGet()
         {
-            if (string.IsNullOrWhiteSpace(PizzaName))
-            {
-                PizzaName = "Custom Pizza";
-            }
-            if (string.IsNullOrWhiteSpace(ImageTitle))
-            {
-                ImageTitle = "Create";
-            }
+            _currentOrder = HttpContext.Session.GetObject<PizzaOrderModel>(SessionKeyOrder);
+            _OrderTotal = _currentOrder.Pizzas.Sum(p => p.FinalPrice);
         }
+
+
     }
 }

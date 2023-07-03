@@ -1,19 +1,67 @@
 ﻿@page
+@using RazorPizzeria.Models
+@using System.Text
 @model RazorPizzeria.Pages.Checkout.CheckoutModel
 @{
 }
 
 <h1>Verify Your Order:</h1>
-@{
-    var imagePath = "~/images/Pizzas/" + (@Model.ImageTitle + ".png");
-}
 
+<hr />
 <div class="align-content-center text-center">
-    <div class="col-3 mx-auto mb-5">
-        <img class="w-100" asp-append-version="true" src=@imagePath />
-        <p>Your Pizza: @Model.PizzaName has been added</p>
-        <p>Total Price: $@Model.PizzaPrice</p>
-        <br/>
-        <a class="btn btn-outline-success mt-1 mx-auto" asp-area="" asp-page="/Checkout/ThankYou" asp-route-PizzaName="@Model.PizzaName" asp-route-PizzaPrice="@Model.PizzaPrice">Submit Order!</a>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Pizza</th>
+                <th>Toppings</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pizza in @Model._currentOrder.Pizzas)
+            {
+                var imagePath = "~/images/Pizzas/" + pizza.ImageTitle + ".png";
+                <tr>
+                    <td>@pizza.PizzaName</td>
+                    <td>@getToppings(@pizza)</td>
+                    <td>$@pizza.FinalPrice</td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <th>Order Total: $@Model._OrderTotal</th>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <a class="btn btn-myButtonRed mt-1" asp-area="" asp-page="/Checkout/ThankYou">Submit Order!<br/> It's Pizza Time!</a>
 </div>
+
+@{
+    string getToppings(PizzasModel pizza)
+    {
+        List<string> Toppings = new List<string>();
+
+
+
+        if (pizza.HasPizzaSauce) Toppings.Add("Pizza Sauce");
+        if (pizza.HasCheese) Toppings.Add("Cheese");
+        if (pizza.HasPepperoni) Toppings.Add("Pepperoni");
+        if (pizza.HasBeef) Toppings.Add("Beef");
+        if (pizza.HasHam) Toppings.Add("Ham");
+        if (pizza.HasMushroom) Toppings.Add("Mushroom");
+        if (pizza.HasPineapple) Toppings.Add("Pineapple");
+        if (pizza.HasTuna) Toppings.Add("Tuna");
+
+        string topList = String.Join(',', Toppings);
+        return topList;
+    }
+
+    string getImagePath(PizzasModel pizza)
+    {
+        var imagePath = "~/images/Pizzas/" + @pizza.PizzaName + ".png";
+        return imagePath;
+    }
+}

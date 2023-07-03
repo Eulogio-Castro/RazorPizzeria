@@ -1,4 +1,6 @@
 ﻿@page
+@using RazorPizzeria.Models
+@using RazorPizzeria.Helpers
 @model RazorPizzeria.Pages.PizzaModel
 @{
 }
@@ -26,18 +28,20 @@
                     </div>
                 </div>
             </div>
+            @foreach (var pizza in Model.fakePizzaDB)
+            {
+                var imagePath = "~/images/Pizzas/" + pizza.ImageTitle + ".png";
+                    <div class="col-4 mb-5">
+                        <form method="post" id="form1">
+                            @*<button class="pizza-img" type="submit" value="@pizza.PizzaName" formtarget="form1" asp-for="_pizzaName">
+                                <img src="@imagePath" class="w-100" asp-append-version="true" />
+                            </button>*@
+                            <input type="submit" class="@pizza.PizzaName pizza-img" asp-for="_pizzaName" value="@pizza.PizzaName" >
+                        </form>
+                    </div>
+                    }
 
-                @foreach(var pizza in Model.fakePizzaDB)
-                {
-                var imagePath = "~/images/Pizzas/" + (pizza.ImageTitle + ".png");
-                <div class="col-4 mb-5">
-                        <a class="pizza-img" asp-area="" asp-page="/Checkout/Checkout" asp-route-ImageTitle="@pizza.ImageTitle" asp-route-PizzaPrice="@pizza.FinalPrice" asp-route-PizzaName="@pizza.PizzaName">
-                            <img src="@imagePath" class="w-100" asp-append-version="true"/>
-                        </a>
-                </div>
-                }
+            </div>
 
         </div>
-
     </div>
-</div>
