@@ -11,37 +11,35 @@
         <h4> Choose from our selection of our Pizzas.</h4>
         <h4> If you don't see exactly what you're craving, try our Pizza Builder!</h4>
     </div>
+</div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mb-5 mt-5">
-                <div class="w-100 row makeYourOwnDiv">
-                    <div class="col-4">
-                        <img src="~/images/Pizzas/Create.png" class="w-100" />
-                    </div>
-                    <div class="col-8 align-items-center">
-                        <div class="align-middle makeYourOwnText">
-                            <h3 style="text-align:left;">Create Your Own Pizza.</h3>
-                            <p style="text-align:left;">Make your own Pizza with our Pizza Builder!</p>
-                            <a class="btn btn-success mt-1" style="float:left;" asp-area="" asp-page="/Forms/CustomPizza">Try Now</a>
-                        </div>
-                    </div>
+    <div class="col-12 mb-5 mt-5 text-center"style="justify-content:center">
+        <div class="w-100 row CreatePizzaDiv">
+            <div class="col" style="padding-left:20%;">
+                <img src="~/images/Pizzas/Create.png" class="createpizza-img" />
+            </div>
+            <div class="col-8 align-items-center" style="padding-left:20%;">
+                <div class="align-middle CreatePizzaText" style="padding-bottom:25%;">
+                    <h3 style="text-align:left;">Create Your Own Pizza.</h3>
+                    <p style="text-align:left;">Make your own Pizza with our Pizza Builder!</p>
+                    <a class="btn btn-success mt-1" style="float:left;" asp-area="" asp-page="/Forms/CustomPizza">Try Now</a>
                 </div>
             </div>
-            @foreach (var pizza in Model.fakePizzaDB)
-            {
-                var imagePath = "~/images/Pizzas/" + pizza.ImageTitle + ".png";
-                    <div class="col-4 mb-5">
-                        <form method="post" id="form1">
-                            @*<button class="pizza-img" type="submit" value="@pizza.PizzaName" formtarget="form1" asp-for="_pizzaName">
-                                <img src="@imagePath" class="w-100" asp-append-version="true" />
-                            </button>*@
-                            <input type="submit" class="@pizza.PizzaName pizza-img" asp-for="_pizzaName" value="@pizza.PizzaName" >
-                        </form>
-                    </div>
-            }
-
-            </div>
-
         </div>
     </div>
+    <div style="display:flex; flex-wrap:wrap;">
+        @foreach (var pizza in Model.fakePizzaDB)
+        {
+            var imagePath = "~/images/Pizzas/" + pizza.ImageTitle + ".png";
+            <div class="px-3 py-2">
+                <form method="post" id="form1">
+                    @*<button class="pizza-img" type="submit" value="@pizza.PizzaName" formtarget="form1" asp-for="_pizzaName">
+                <img src="@imagePath" class="w-100" asp-append-version="true" />
+                </button>*@
+                    <input type="submit" class="@pizza.PizzaName pizza-img" asp-for="_pizzaName" value="@pizza.PizzaName">
+                </form>
+            </div>
+        }
+</div>
+
+

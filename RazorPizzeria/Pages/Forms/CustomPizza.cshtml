@@ -6,58 +6,61 @@
     <h1>Build Your Own Pizza!</h1>
 </div>
 <div class="text-left container">
-    <form method="post" class="mx-auto mt-5 mb-5 px-5 pt-5 col-3 rounded-3 bg-light">
-        <div>
+    <form method="post" class="mx-auto mt-5 mb-5 px-5 pt-5 col-3 rounded-5 customPizzaForm">
+        <div style="display: flex; justify-content: center ">
             <label><input type="text" asp-for="Pizza.PizzaName" placeholder="Name your pizza." /></label>
         </div>
+        <br />
+        <span style="display: flex; justify-content: center ">Select your toppings:</span>
+        <br />
         <div class="px-xxl-5">
             <div>
-                <label style="display: inline-block">
+                <label style="display: inline-block; white-space:nowrap">
                     <input type="checkbox" asp-for="Pizza.HasPizzaSauce" placeholder="Tomato Sauce" />
                     <span style="vertical-align:middle">Pizza Sauce</span>
                 </label>
             </div>
 
             <div>
-                <label style="display: inline-block">
+                <label style="display: inline-block; white-space:nowrap">
                     <input type="checkbox" asp-for="Pizza.HasCheese" placeholder="Cheese" />
                     <span style="vertical-align:middle">Cheese</span>
                 </label>
             </div>
 
             <div>
-                <label style="display: inline-block">
+                <label style="display: inline-block; white-space:nowrap">
                     <input type="checkbox" asp-for="Pizza.HasPepperoni" placeholder="Pepperoni" />
                     <span style="vertical-align:middle"> Pepperoni</span>
                 </label>
             </div>
             <div>
-                <label style="display: inline-block">
+                <label style="display: inline-block; white-space:nowrap">
                     <input type="checkbox" asp-for="Pizza.HasMushroom" placeholder="Mushroom" />
                     <span style="vertical-align:middle">Mushroom</span>
                 </label>
             </div>
             <div>
-                <label style="display: inline-block">
+                <label style="display: inline-block; white-space:nowrap">
                     <input type="checkbox" asp-for="Pizza.HasTuna" placeholder="Tuna" />
                     <span style="vertical-align:middle">Tuna</span>
                 </label>
             </div>
             <div>
-                <label style="display: inline-block">
+                <label style="display: inline-block; white-space:nowrap">
                     <input type="checkbox" asp-for="Pizza.HasPineapple" placeholder="Ham" />
                     <span style="vertical-align:middle">Ham</span>
                 </label>
             </div>
             <div>
-                <label style="display: inline-block">
+                <label style="display: inline-block; white-space:nowrap">
                     <input type="checkbox" asp-for="Pizza.HasHam" placeholder="Beef" />
                     <span style="vertical-align:middle">Beef</span>
                 </label>
             </div>
         </div>
         <div style="text-align:center">
-            <button class="btn btn-outline-success mt-1 px-3 mx-0" type="submit">Add Pizza!</button>
+            <button class="btn btn-myButtonGreen my-2 px-3 mx-0" type="submit">Add Pizza!</button>
         </div>
     </form>
 </div>
