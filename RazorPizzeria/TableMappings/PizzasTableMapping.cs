@@ -10,7 +10,7 @@ namespace RazorPizzeria.TableMappings
         {
             builder.ToTable("PizzasModel");
             builder.HasKey("Id");
-            builder.Property(o => o.Id).HasColumnName("Id").IsRequired();
+            builder.Property(o => o.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
             builder.Property(o => o.ImageTitle).HasColumnName("ImageTitle");
             builder.Property(o => o.PizzaName).HasColumnName("PizzaName");
             builder.Property(o => o.BasePrice).HasColumnName("BasePrice");

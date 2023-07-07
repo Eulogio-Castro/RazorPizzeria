@@ -29,12 +29,12 @@
                             <a class="nav-link mynavbartext" asp-area="" asp-page="/Pizza">Pizzas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mynavbartext" asp-area="" asp-page="/Orders">Orders</a>
+                            <a class="nav-link mynavbartext" asp-area="" asp-page="/Pages/Checkout">Checkout</a>
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link mynavbartext" asp-area="" asp-page="/Profile/MyOrders">My Orders</a>
+                                <a class="nav-link mynavbartext" asp-area="" asp-page="/Profile/MyOrders">My Past Orders</a>
                             </li>
                         }
                         else

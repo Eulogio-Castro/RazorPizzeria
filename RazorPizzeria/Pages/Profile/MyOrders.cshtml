@@ -9,7 +9,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>OrderNumber</th>
+            <th style="text-align:center">OrderNumber</th>
             <th>Order Details</th>
             <th>Price</th>
             <th>Order Placed</th>
@@ -20,7 +20,15 @@
         {
             var pizzas = order.Pizzas;
             <tr>
-                <td>@order.Id</td>
+                <td align="center">@order.Id 
+                    <form asp-page-handler="view" method="post">
+                            @*<button class="btn btn-myButtonRed mt-1" type="submit" value="@order.Id" name="Order Again!" asp-route-value="@order.Id">
+                                Order Again!
+                            </button>*@
+                            <button class="btn btn-myButtonRed">Order Again</button>
+                            <input name="id" value="@order.Id" hidden/>
+                        </form>
+                </td>
                 <td>
                     <table>
                         <tbody>

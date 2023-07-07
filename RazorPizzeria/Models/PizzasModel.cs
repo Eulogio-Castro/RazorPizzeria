@@ -19,7 +19,7 @@ namespace RazorPizzeria.Models
         public bool HasBeef { get; set; }
         public float FinalPrice { get; set; }
 
-        public int PizzaOrderId { get; set; }
+        public int? PizzaOrderId { get; set; }
         public PizzaOrderModel PizzaOrder { get; set; } = null!;
 
     }

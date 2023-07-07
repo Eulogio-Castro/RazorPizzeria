@@ -6,10 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using RazorPizzeria.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("RazorPizzeriaContextConnection") ?? throw new InvalidOperationException("Connection string 'RazorPizzeriaContextConnection' not found.");
-//string connectionStr = "Server=aws.connect.psdb.cloud;Database=razorpizzeriadb;user=ueg7ahbtdaecvzjiw0kw;password=pscale_pw_gQNdUv6EgT2BSfX3rs3BKjfMTmfa2BByfmrfiONlF4b;";
-string connectionStr = "Username=eulogio;Password=1SI5VupYsvb5LAVuFdMxXg;Host=db-ecastro-cockroach-2816.g95.cockroachlabs.cloud:26257;Database=RazorPizzeria";
-
 
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
@@ -21,7 +17,7 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
-    options.UseNpgsql(connectionStr)
+    options.UseNpgsql(builder.Configuration["cockroachlabsDBstring"])
     .LogTo(Console.WriteLine, LogLevel.Information)
     .EnableSensitiveDataLogging()
     .EnableDetailedErrors()

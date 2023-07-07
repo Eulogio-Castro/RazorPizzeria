@@ -11,9 +11,10 @@ namespace RazorPizzeria.TableMappings
         {
             builder.ToTable("Orders");
             builder.HasKey("Id");
-            builder.Property(o => o.Id).HasColumnName("Id").IsRequired();
+            builder.Property(o => o.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
             builder.Property(o => o.OrderDate).HasColumnName("OrderDate");
             builder.Property(o => o.CustomerID).HasColumnName("CustomerID");
+            builder.HasIndex(o => o.CustomerID);
             builder.HasMany(o => o.Pizzas)
                 .WithOne(o => o.PizzaOrder)
                 .HasForeignKey(o => o.PizzaOrderId)

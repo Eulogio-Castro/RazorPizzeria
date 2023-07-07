@@ -42,9 +42,11 @@ namespace RazorPizzeria.Pages.Checkout
                 _currentOrder.OrderPrice = _currentOrder.Pizzas.Sum(p => p.FinalPrice);
                 _currentOrder.OrderDate = DateTime.UtcNow;
                 _context.Database.EnsureCreated();
+                
 
 
                 _context.Orders.Add(_currentOrder);
+
                 _context.SaveChanges();
 
                 PizzaOrderModel blank = new PizzaOrderModel();

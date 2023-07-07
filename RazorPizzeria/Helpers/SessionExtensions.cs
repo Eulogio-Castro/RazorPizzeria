@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace RazorPizzeria.Helpers
 {
@@ -6,13 +7,23 @@ namespace RazorPizzeria.Helpers
     {
         public static void SetObject(this ISession session, string key, object value)
         {
-            session.SetString(key, JsonSerializer.Serialize(value));
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = ReferenceHandler.Preserve,
+                WriteIndented = true
+            };
+            session.SetString(key, JsonSerializer.Serialize(value, options));
         }
 
         public static T GetObject<T>(this ISession session, string key)
         {
             var value = session.GetString(key);
-            return value == null ? default(T) : JsonSerializer.Deserialize<T>(value);
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = ReferenceHandler.Preserve,
+                WriteIndented = true
+            };
+            return value == null ? default(T) : JsonSerializer.Deserialize<T>(value, options);
         }
     }
 }
