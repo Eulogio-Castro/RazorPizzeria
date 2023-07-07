@@ -16,7 +16,7 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
-    options.UseNpgsql(builder.Configuration["cockroachlabsDBstring"])
+    options.UseNpgsql(builder.Configuration["ConnectionStrings:cockroachlabsDBstring"])
     .LogTo(Console.WriteLine, LogLevel.Information)
     .EnableSensitiveDataLogging()
     .EnableDetailedErrors()
