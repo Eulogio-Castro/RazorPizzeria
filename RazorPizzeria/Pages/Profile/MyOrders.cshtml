@@ -6,12 +6,13 @@
 }
 <h3>My Orders</h3>
 <hr />
+<div style="overflow-x:auto;">
 <table class="table">
     <thead>
         <tr>
             <th style="text-align:center">OrderNumber</th>
             <th>Order Details</th>
-            <th>Price</th>
+            <th>Order Total</th>
             <th>Order Placed</th>
         </tr>
     </thead>
@@ -49,6 +50,7 @@
 
     </tbody>
 </table>
+</div>
 
 @{
     string getToppings(PizzasModel pizza)
