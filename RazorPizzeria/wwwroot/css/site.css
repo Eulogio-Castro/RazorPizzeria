@@ -112,7 +112,7 @@ body {
 
 .btn-myButtonGreen {
     color: #fff;
-    background-color: rgba(45, 89, 63 0.55);
+    background-color: #375242;
     border-color: rgba(195,84,84, 0.55);
 }
 
@@ -122,12 +122,24 @@ body {
         border-color: #146c43;
     }
 
+.btn-myButtonDelete {
+    color: #FFF;
+    background-color: #5c5c5c;
+    border-color: #000000;
+}
+
+    .btn-myButtonDelete:hover {
+        color: #ab1616;
+        background-color: #242423;
+        border-color: #000000;
+    }
+
 
 .pizza-img :hover {
     animation-name: pizzaImgKF;
     animation-duration: .3s;
     animation-direction: alternate;
-    animation-iteration-count:infinite;
+    animation-iteration-count: infinite;
 }
 
 @keyframes pizzaImgKF{

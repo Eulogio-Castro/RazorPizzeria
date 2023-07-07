@@ -9,34 +9,58 @@
 
 <hr />
 <div class="align-content-center text-center">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Pizza</th>
-                <th>Toppings</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var pizza in @Model._currentOrder.Pizzas)
-            {
-                var imagePath = "~/images/Pizzas/" + pizza.ImageTitle + ".png";
+
+    @if (@Model._currentOrder.Pizzas.Count > 0)
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@pizza.PizzaName</td>
-                    <td>@getToppings(@pizza)</td>
-                    <td>$@pizza.FinalPrice</td>
+                    <th>Pizza</th>
+                    <th>Toppings</th>
+                    <th>Price</th>
+                    <th> </th>
                 </tr>
-            }
-            <tr>
-                <td></td>
-                <td></td>
-                <th>Order Total: $@Model._OrderTotal</th>
-            </tr>
+            </thead>
+            <tbody>
+                @foreach (var pizza in @Model._currentOrder.Pizzas.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <td>@pizza.value.PizzaName</td>
+                        <td>@getToppings(@pizza.value)</td>
+                        <td>$@pizza.value.FinalPrice</td>
+                        <td>
+                            <form asp-page-handler="view" method="post">
+                                <button class="btn btn-myButtonDelete">Remove Pizza</button>
+                                <input name="removePizzaIndex" value="@pizza.i" hidden />
+                            </form>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <th>Order Total: $@Model._OrderTotal</th>
+                </tr>
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <a class="btn btn-myButtonRed mt-1" asp-area="" asp-page="/Checkout/ThankYou">Submit Order!<br/> It's Pizza Time!</a>
+        <div style="display:flex; align-items:stretch; text-align:center; justify-content:space-evenly; width:50%; transform: translate(50%, 0);">
+            
+                <a class="btn btn-myButtonRed mt-1" style="padding:1.5% 1%;" asp-area="" asp-page="/Pizza">Add More Pizza!<br /> </a>
+            
+                <a class="btn btn-myButtonGreen mt-1" asp-area="" asp-page="/Checkout/ThankYou">Submit Order!<br /> It's Pizza Time!</a>
+            
+        </div>
+    }
+
+    else
+    {
+        <h3>Oh no! Your cart's empty.</h3>
+        <h3>Let's add some pizza first:</h3>
+        <a class="btn btn-myButtonRed mt-1" asp-area="" asp-page="/Pizza">Add Pizza now!</a>
+    }
+
 </div>
 
 @{

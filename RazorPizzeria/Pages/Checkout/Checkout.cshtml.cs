@@ -27,6 +27,15 @@ namespace RazorPizzeria.Pages.Checkout
             _OrderTotal = _currentOrder.Pizzas.Sum(p => p.FinalPrice);
         }
 
+        public IActionResult OnPost(int removePizzaIndex)
+        {
+            _currentOrder = HttpContext.Session.GetObject<PizzaOrderModel>(SessionKeyOrder);
+            _currentOrder.Pizzas.Remove(_currentOrder.Pizzas.ElementAt(removePizzaIndex));
+
+            HttpContext.Session.SetObject(SessionKeyOrder, _currentOrder);
+            return RedirectToPage("/Checkout/Checkout");
+
+        }
 
     }
 }
