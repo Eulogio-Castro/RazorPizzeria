@@ -7,7 +7,6 @@ using RazorPizzeria.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
