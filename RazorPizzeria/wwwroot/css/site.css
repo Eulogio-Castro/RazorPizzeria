@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
+
 html {
   font-size: 14px;
 }
@@ -39,22 +41,28 @@ body {
     color: #13adad
 }
 .mynavbar-dark .navbar-brand {
+    font-family: 'Mr Dafoe';
     color: white;
-    background-color: #191919;
-    border-radius: 10px;
-    padding:10px;
+    font-size: 26px;
+    text-shadow: 2px 2px 1px #ad1305, 2px 2px 2px #000;
+    transform: rotate(-7deg);
+    padding: 10px;
 }
 
     .mynavbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
-        color: rgba(255, 255, 255, .25);
+        color: #D2D2D2;
+        text-shadow: 2px 2px 2px #191919;
     }
 
 .mynavbar-dark .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.75);
+    text-shadow: 1px 1px 1px #000000;
+    
 }
 
     .mynavbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
-        color: #191919;
+        color: #FFF;
+        
     }
 
     .mynavbar-dark .navbar-nav .nav-link.disabled {
@@ -68,7 +76,7 @@ body {
 
 .mynavbar-dark .navbar-toggler {
     color: rgba(195,84,84, 0.55);
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 0, 0, 1);
 }
 
 .mynavbar-dark .navbar-toggler-icon {
