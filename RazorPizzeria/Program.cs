@@ -1,7 +1,5 @@
 using RazorPizzeria.Data;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore;
-using MySqlConnector;
 using Microsoft.AspNetCore.Identity;
 using RazorPizzeria.Areas.Identity.Data;
 
